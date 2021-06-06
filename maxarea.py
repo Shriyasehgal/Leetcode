@@ -1,19 +1,26 @@
 class Solution(object):
-     def maxArea(self, height):
-        if not height:
-            return 0
-
-        left, right = 0, len(height) - 1
-        area = 0
-        while left < right:
-            width = right - left
-            if height[left] <= height[right]:
-                area = max(area, width * height[left])
-                left += 1
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        
+        
+        i=0
+        j=len(height)-1
+        max_area=0
+        
+        while i<j:
+            
+            if height[i]<height[j]:
+                max_area=max(max_area,height[i]*(j-i))
+                i+=1
+            
             else:
-                area = max(area, width * height[right])
-                right -= 1
-        return area
+                max_area=max(max_area,height[j]*(j-i))
+                j-=1
+                
+        return max_area
 
 sol=Solution()
 sol.maxArea([1,1,3,1,4,9,1])  
