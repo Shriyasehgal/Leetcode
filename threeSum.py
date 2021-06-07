@@ -3,33 +3,20 @@
 Notice that the solution set must not contain duplicate triplets."""
 
 
-class Solution(object):
-    def threeSum(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        nums.sort()
-        i=0
-        j=len(nums)-1
-        results=[]
-        k=0
-        if len(nums)<=2:
-            return []
-        
-        if nums[0]==0 and nums.count(nums[0])==len(nums):
-            return [[0,0,0]]
-            
-        while nums[i] <=0:
-            while nums[j]>=0:
-                k= 0-(nums[i]+nums[j])
-                if k in nums[i+1:j] and [nums[i],nums[j], k] not in results :
-                    results.append([nums[i],nums[j], k])
-                j-=1
-                if abs(j)==len(nums):
-                    break
-            i+=1
-            j=len(nums)-1
-            if abs(i)==len(nums):
-                break
-        return results  
+def threeSum(nums):
+    res, d = [], {}
+    nums.sort()
+    for i in range(len(nums)-2):
+        l, r = i + 1, len(nums) - 1
+        while l < r:
+            s = nums[i] + nums[l] + nums[r]
+            t = [nums[i], nums[l], nums[r]]
+            if s == 0:
+                if str(t) not in d:
+                    res.append(t)
+                    d[str(t)] = True
+                l, r = l + 1, r - 1
+            elif s < 0: l += 1
+            elif s > 0: r -= 1
+    return res
+threeSum([-2,0,1,1,2])
