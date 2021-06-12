@@ -65,5 +65,5 @@ class Solution(object):
       
             
 sol=Solution()
-sol.numDecodings("1111111111")
+print(sol.numDecodings("1111111111"))
             
