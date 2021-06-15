@@ -18,9 +18,9 @@ def sockMerchant(n, ar):
                 n=n-2
                 break
             
-        else:
-            ar.remove(ar[0])
-            n=n-1
+            else:
+                ar.remove(ar[0])
+                n=n-1
         
     
             
