@@ -56,6 +56,7 @@ class Solution(object):
                 
                 
     def to_binary(self,n):
+	return bin(n).replace("0b", "")
         return bin(n).replace("0b", "")
     
    
