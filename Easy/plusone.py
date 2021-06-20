@@ -17,5 +17,5 @@ class Solution(object):
                 return digits
             
             if abs(i+1)==len(digits):
-                return ['1'] + digits
+                return [1] + digits
         
