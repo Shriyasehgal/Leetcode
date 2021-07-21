@@ -6,7 +6,7 @@ def merge(nums,l,r,m):
 
     i=j=0
     k=l
-    while i<len(L) and j<len(R):
+    while i<len(L) and j<len(R):   #Merging elements from L and R in ascending order
         if L[i]<=R[j]:
             nums[k]=L[i]
             i+=1
@@ -15,12 +15,12 @@ def merge(nums,l,r,m):
             j+=1
         k+=1
 
-    while i<len(L):
+    while i<len(L):              #Adding rest of elements from L to nums
         nums[k]=L[i]
         i+=1
         k+=1
 
-    while j<len(R):
+    while j<len(R):             #Adding rest of elements from R to nums
         nums[k]=R[j]
         j+=1
         k+=1
@@ -31,8 +31,8 @@ def mergeSort(nums,l,r):
     if l < r:
 
         m=(l+r)//2
-        mergeSort(nums,l,m)
-        mergeSort(nums,m+1,r)
+        mergeSort(nums,l,m)         #Sorting Left Hand side
+        mergeSort(nums,m+1,r)       #Sorting Right Hand side
         merge(nums,l,r,m)
 
 nums=[7,5,6,4,3,32,3,1,3,4,5,9,8,4,5,6,87,9,7,65,4,3,4,5,7,8,64,3,34,4,3,2,6,778,6,5,7,5,6,4,3,32,3,1,3,4,5,9,8,4,5,6,87,9,7,65,4,3,4,5,7,8,64,3,34,4,3,2,6,778,6,5]
