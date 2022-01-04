@@ -46,42 +46,34 @@ class LinkedList(object):
     
     
 class Solution(object):
-    def swapPairs(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
-        if head==None:
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head == None or head.next==None:
             return head
         
-        curr=head
+        prev = None 
+        curr1 = head
+        curr2 = head.next
         
-        while curr!=None and curr.next!=None:
-            s=curr
-            e=curr.next
+        while True:
+            after = curr2.next
+            curr1.next = after
+            curr2.next = curr1
             
-            currDummy=head
-            s_prev=None
-            while currDummy!=s:
-                s_prev=currDummy
-                currDummy=currDummy.next
-                
-            e_prev=s
-                
-                
-            if s_prev!=None:
-                s_prev.next=e
+            if prev == None:
+                prev = curr2
+                start = prev
             else:
-                head=e
-                    
-            e_prev.next=s
-                
-            temp=s.next
-            s.next=e.next
-            e.next=temp  
+                prev.next = curr2
             
-            curr=curr.next
-        return head
+            if curr1.next != None and curr1.next.next!=None:
+                prev = curr1
+                curr1 = curr1.next
+                curr2 = curr1.next
+               
+            else:
+                break
+                
+        return start
     
             
             
