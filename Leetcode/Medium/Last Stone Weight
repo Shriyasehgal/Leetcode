@@ -1,0 +1,61 @@
+'''You are given an array of integers stones where stones[i] is the weight of the ith stone.
+
+We are playing a game with the stones. On each turn, we choose the heaviest two stones and smash them together. Suppose the heaviest two stones have weights x and y with x <= y. The result of this smash is:
+
+If x == y, both stones are destroyed, and
+If x != y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x.
+At the end of the game, there is at most one stone left.
+
+Return the smallest possible weight of the left stone. If there are no stones left, return 0.'''
+
+class Solution:
+    def __init__(self):
+        self.stones = []
+    def buildHeap(self):
+        n = len(self.stones)
+        for i in range(int(n/2),-1,-1):
+            self.heapify(i)
+            
+    def heapify(self,i):
+        largest = i
+        l = 2*i + 1
+        r = 2*i + 2
+        n = len(self.stones)
+        
+        if l < n and self.stones[largest] < self.stones[l]:
+            largest = l
+        if r < n and self.stones[largest] < self.stones[r]:
+            largest = r
+        if largest != i:
+            self.stones[largest], self.stones[i] = self.stones[i], self.stones[largest]
+            self.heapify(largest)
+    def removeLargest(self):
+        largest = self.stones[0]
+        self.stones[0] = self.stones[-1]
+        self.stones.pop()
+        self.heapify(0)
+        return largest
+    def percolateup(self, i):
+        if i == 0:
+            return
+        small = i
+        parent = int(small/2)
+        if self.stones[small]>self.stones[parent]:
+            self.stones[small],self.stones[parent] = self.stones[parent], self.stones[small]
+            self.percolateup(parent)
+            
+        
+    def addNumber(self,k):
+        self.stones.append(k)
+        self.percolateup(len(self.stones)-1)
+        
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        self.stones = stones
+        self.buildHeap()
+        while len(self.stones)!=1:
+            print(self.stones)
+            maxx1=self.removeLargest()
+            maxx2=self.removeLargest()
+            self.addNumber(abs(maxx1-maxx2))
+        return self.stones[0]
+        
