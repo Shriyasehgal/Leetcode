@@ -7,56 +7,25 @@ from collections import deque
 #         self.right = right
 class Solution:
     def reverseOddLevels(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        #Traverse Once
-        flag = 0
+        level = 0
         queue = [root]
         newQueue = []
-        auxQueue = []
-        aux = []
         while queue:
-            el = queue.pop(0)
-            newQueue.append(el.left) if el.left else None
-            newQueue.append(el.right) if el.right else None
-            aux.append(el.val)
-            if not queue:
-                if flag == 0:
+            if level%2 == 1:
+                l = 0
+                r = len(queue) - 1
+                while l <= r:
+                    queue[l].val, queue[r].val = queue[r].val, queue[l].val
+                    l+=1
+                    r-=1
                     
-                    aux.clear()
-                    flag = 1
-                elif flag == 1:
-                    auxQueue.append(aux[:])
-                    aux.clear()
-                    flag = 0
-                queue = newQueue[:]
-                newQueue = []
-        queue = [root]
-        newQueue = []
-        flag = 0
-        while queue:
-            if flag == 0:
-                el = queue.pop(0)
-                newQueue.append(el.left) if el.left else None
-                newQueue.append(el.right) if el.right else None
-                if not queue:
-                    queue = newQueue[:]
-                    newQueue = []
-                    flag = 1
-                    aux = auxQueue.pop(0) if auxQueue else None
-            
-            elif flag == 1:
-                el = queue.pop(0)
-                el.val = aux.pop()
-                newQueue.append(el.left) if el.left else None
-                newQueue.append(el.right) if el.right else None
-                if not queue:
-                    queue = newQueue[:]
-                    newQueue = []
-                    flag = 0
-            
-                
-            
-        return root
-            
+            for i in range(len(queue)):
+                curr = queue.pop(0)
+                newQueue.append(curr.left) if curr.left else None
+                newQueue.append(curr.right) if curr.right else None
         
-                
+            level +=1
+            queue = newQueue[:]
+            newQueue.clear()
+        return root
         
