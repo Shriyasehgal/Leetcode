@@ -1,16 +1,21 @@
 class Solution:
     def pushDominoes(self, dominoes: str) -> str:
-        new_dominoes = list(dominoes)
-        old_dominoes = []
-        #Each while loop is i unit of time
-        while old_dominoes != new_dominoes:
-            old_dominoes = new_dominoes[:]
-            for i in range(len(new_dominoes)):
-                if old_dominoes[i] == '.':
-                    if i > 0 and old_dominoes[i-1] == 'R' and i < len(new_dominoes)-1 and old_dominoes[i+1] == 'L':
-                        continue
-                    elif  i > 0 and old_dominoes[i-1] == 'R':
-                        new_dominoes[i] = 'R'
-                    elif  i < len(new_dominoes)-1 and old_dominoes[i+1] == 'L':
-                        new_dominoes[i] = 'L'
-        return ''.join(new_dominoes)
+        dominoes = list(dominoes)
+        q = deque()
+        for i,d in enumerate(dominoes):
+            if d != '.': q.append((i,d))
+        while q:
+            i,d = q.popleft()
+            if d == 'L':
+                if i > 0 and dominoes[i-1] == '.':
+                    dominoes[i-1] = 'L'
+                    q.append((i-1,'L'))
+            elif d == 'R':
+                if i < len(dominoes)-1 and dominoes[i+1] =='.':
+                    if i < len(dominoes)-2 and dominoes[i+2] == 'L':
+                        q.popleft() #Removing the next L as well so that it doesnot knock over the standing dominoe
+                    else:
+                        dominoes[i+1] = 'R'
+                        q.append((i+1,'R'))
+        return ''.join(dominoes)
+        
