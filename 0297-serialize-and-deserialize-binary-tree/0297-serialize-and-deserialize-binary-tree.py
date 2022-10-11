@@ -8,7 +8,8 @@
 class Codec:
     def __init__(self):
         self.data = None
-    def preorder(self,root):
+        
+    '''def preorder(self,root):
         if root == None:
             return ''
         res = ''
@@ -23,7 +24,7 @@ class Codec:
         res += self.inorder(root.left)
         res +=(str(root.val) + '.')
         res += self.inorder(root.right)
-        return res
+        return res'''
     
     def serialize(self, root):
         """Encodes a tree to a single string.
@@ -37,14 +38,14 @@ class Codec:
         if not root: return 'x'
         return ','.join([str(root.val), self.serialize(root.left), self.serialize(root.right)])
         
-    def buildTree(self, pre, ino):
+    '''def buildTree(self, pre, ino):
         if not pre: return None
         val = pre[0]
         idx = ino.index(val)
         node = TreeNode(int(val))
         node.left = self.buildTree(pre[1:idx+1],ino[0:idx])
         node.right = self.buildTree(pre[idx+1:],ino[idx+1:])
-        return node
+        return node'''
         
 
     def deserialize(self, data):
