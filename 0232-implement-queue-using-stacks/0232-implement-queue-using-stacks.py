@@ -1,8 +1,8 @@
 class MyQueue(object):
 
     def __init__(self):
-        self.stack1 = []
-        self.stack2 = []
+        self.stack1 = [] #The represents the back of the queue
+        self.stack2 = [] #This represents the front of the queue
 
     def push(self, x):
         """
@@ -16,24 +16,18 @@ class MyQueue(object):
         """
         :rtype: int
         """
-        while len(self.stack1)!=1:
-            self.stack2.append(self.stack1.pop())
-        val = self.stack1.pop()
-        while self.stack2:
-            self.stack1.append(self.stack2.pop())
-        return val
+        self.frontToBack()
+        return self.stack2.pop()
+       
         
 
     def peek(self):
         """
         :rtype: int
         """
-        while len(self.stack1)!=1:
-            self.stack2.append(self.stack1.pop())
-        val = self.stack1.pop()
-        self.stack1.append(val)
-        while self.stack2:
-            self.stack1.append(self.stack2.pop())
+        self.frontToBack()
+        val = self.stack2.pop()
+        self.stack2.append(val)
         return val
         
 
@@ -41,7 +35,12 @@ class MyQueue(object):
         """
         :rtype: bool
         """
-        return not self.stack1
+        return not self.stack1 and not self.stack2
+    
+    def frontToBack(self):
+        if not self.stack2:
+            while self.stack1:
+                self.stack2.append(self.stack1.pop())
         
 
 
