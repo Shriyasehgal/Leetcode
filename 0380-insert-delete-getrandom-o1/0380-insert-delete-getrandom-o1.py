@@ -1,42 +1,33 @@
-class RandomizedSet(object):
+class RandomizedSet:
 
     def __init__(self):
-        self.randomSet = {}
-        self.elements = []
+        self.set = []
+        self.map = {}
+        self.count = 0
 
-    def insert(self, val):
-        """
-        :type val: int
-        :rtype: bool
-        """
-        if val in self.randomSet: 
+    def insert(self, val: int) -> bool:
+        if val in self.map:
             return False
-        else: 
-            self.elements.append(val)
-            self.randomSet[val] = len(self.elements)-1
-        return True
-            
-        
-
-    def remove(self, val):
-        """
-        :type val: int
-        :rtype: bool
-        """
-        if val not in self.randomSet: return False
-        idx = self.randomSet[val]
-        self.randomSet[self.elements[-1]] = idx
-        self.elements[idx], self.elements[-1] = self.elements[-1], self.elements[idx]
-        self.elements.pop()
-        del self.randomSet[val]
+        self.set.append(val)
+        self.map[val] = self.count
+        self.count+=1
         return True
 
-    def getRandom(self):
-        """
-        :rtype: int
-        """
+    def remove(self, val: int) -> bool:
+        if val not in self.map:
+            return False
+        idx = self.map[val]
+        self.map[self.set[-1]] = idx
+        self.set[idx], self.set[-1] = self.set[-1], self.set[idx]
+        self.set.pop()
+        self.count -=1
+        del self.map[val]
+        return True
         
-        return self.elements[random.randint(0, len(self.elements) - 1)]
+
+    def getRandom(self) -> int:
+        i = random.randint(0,self.count-1)
+        return self.set[i]
         
 
 
