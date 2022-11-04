@@ -16,12 +16,12 @@ class Solution:
                     stack.pop()
                     i+=1
                 else:
-                    s.pop(i)
+                    s[i] = ''
             else:
                 i+=1
             
         while stack:
-            s.pop(stack.pop()[1])
+            s[stack.pop()[1]] = ''
             
         return ''.join(s)
         
