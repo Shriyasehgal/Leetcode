@@ -13,7 +13,6 @@ class Solution:
             left1 = nums1[i] if i>=0 else -float('inf')  
             left2 = nums2[j] if j>=0 else -float('inf')
             right1 = nums1[i+1] if (i+1)<len(nums1) else float('inf')
-            print(j)
             right2 = nums2[j+1] if (j+1)<len(nums2) else float('inf')
             #correct partition is found
             if left1<=right2 and left2<=right1:
@@ -26,6 +25,6 @@ class Solution:
                 l = i+1
             #We need tp remove some elements from the nums2
             else:
-                r = r-1
+                r = i-1
                 
             
