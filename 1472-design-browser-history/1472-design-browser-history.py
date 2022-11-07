@@ -5,8 +5,8 @@ class BrowserHistory:
         self.idx = 0
 
     def visit(self, url: str) -> None:
-        
-        self.history = self.history[:self.idx+1]
+        while len(self.history) > self.idx + 1:
+            self.history.pop()
         self.history.append(url)
         self.idx += 1
         
