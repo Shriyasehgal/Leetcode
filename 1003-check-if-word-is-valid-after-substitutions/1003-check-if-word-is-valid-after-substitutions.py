@@ -1,16 +1,11 @@
 class Solution:
+    
     def isValid(self, s: str) -> bool:
         stack = []
-        t = -3
-        for c in s:
-            stack.append(c)
-            t+=1
-            if t >= 0 and stack[t:] == ['a','b','c']:
-                stack.pop()
-                stack.pop()
-                stack.pop()
-                t = t-3
+        t = ''
+        for i in range(len(s)):
+            stack.append(s[i])
+            if len(stack) >= 3 and stack[-3:] == ['a','b','c']:
+                for i in range(3): stack.pop()
             
         return not stack
-            
-            
