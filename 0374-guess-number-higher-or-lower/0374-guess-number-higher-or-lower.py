@@ -7,17 +7,17 @@
 
 class Solution:
     def guessNumber(self, n: int) -> int:
-        lower = 1
-        upper = n
+        l = 1
+        r = n
         while True:
-            num = random.randint(lower,upper)
+            num = (l+r)//2
             decision = guess(num)
             if decision == 0:
                 return num
             elif decision == 1:
-                lower = num+1
+                l = num+1
             else:
-                upper = num-1
+                r = num-1
         
                 
                 
