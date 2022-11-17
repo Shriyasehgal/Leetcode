@@ -3,5 +3,4 @@ class Solution:
         area1 = abs(ax1 - ax2)*abs(ay1-ay2)
         area2 = abs(bx1 - bx2)*abs(by1-by2)
         overlap = max(min(ax2, bx2) - max(ax1, bx1), 0) * max(min(ay2, by2) - max(ay1, by1), 0)
-        print(overlap)
         return area1 + area2 - overlap
