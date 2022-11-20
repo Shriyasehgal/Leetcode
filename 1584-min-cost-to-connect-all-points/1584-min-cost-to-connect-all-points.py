@@ -1,25 +1,28 @@
 class Solution:
-    def minCostConnectPoints(self, points: List[List[int]]) -> int:
-        adjList = {k : [] for k in range(len(points))}
+    def buildGraph(self, points):
+        graph = defaultdict(list)
         for i in range(len(points)):
-            x1,y1 = points[i]
             for j in range(i+1,len(points)):
-                x2,y2 = points[j]
-                dist = abs(x2-x1) + abs(y2-y1)
-                adjList[i].append((dist,j)) # cost, neigh
-                adjList[j].append((dist,i))
-       #Prim's algothim
-        visited = set()
-        minH = [[0,0]]
-        res = 0
-        while len(visited) < len(points):
-            cost,n = heapq.heappop(minH)
-            if n in visited:
-                continue
-            res+=cost
-            visited.add(n)
-            for neighbor in adjList[n] :
-                if neighbor not in visited:
-                    heapq.heappush(minH,neighbor)
-        return res
-                
+                dist = (abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1]))
+                graph[i].append((dist,j))
+                graph[j].append((dist,i))
+        return graph
+    
+    def minCostConnectPoints(self, points: List[List[int]]) -> int:
+        graph = self.buildGraph(points)
+
+        heap = [(0,0)] #(distance, destination)
+        visited = [0]*len(points)
+        totalCost = 0
+        while heap:
+            point = heappop(heap)
+            if visited[point[1]] == 1: continue
+            totalCost += point[0]
+            visited[point[1]] = 1
+            for n in graph[point[1]]:
+                if visited[n[1]] != 1:
+                    heappush(heap,n)
+                   
+        return totalCost
+        
+        
